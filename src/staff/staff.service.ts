@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffDto } from './dto/update-staff.dto';
-
+import { Repository } from 'typeorm';
+import { Staff } from './entities/staff.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as moment from 'moment'
 @Injectable()
 export class StaffService {
-  create(createStaffDto: CreateStaffDto) {
-    return 'This action adds a new staff';
+  constructor(
+    @InjectRepository(Staff)
+    private repository: Repository<Staff>
+  ){ }
+
+  create(data: CreateStaffDto) {
+    return this.repository.save({
+      ...data,
+      changed_at: moment().format('YYYY-MM-DD HH:mm:ss')
+    });
   }
 
   findAll() {
-    return `This action returns all staff`;
+    return this.repository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} staff`;
+    return this.repository.findOneBy({id});
   }
 
-  update(id: number, updateStaffDto: UpdateStaffDto) {
-    return `This action updates a #${id} staff`;
+  update(id: number, data: UpdateStaffDto) {
+    return this.repository.save({...data,id});
   }
 
   remove(id: number) {
-    return `This action removes a #${id} staff`;
+    return this.repository.delete({id});
   }
 }

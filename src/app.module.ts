@@ -11,6 +11,8 @@ import { StaffModule } from './staff/staff.module';
 import { WirehousesModule } from './wirehouses/wirehouses.module';
 import { WirehouseOwnersModule } from './wirehouse_owners/wirehouse_owners.module';
 import { Wirehouse } from './wirehouses/entities/wirehouse.entity';
+import { Post } from './posts/entities/post.entity';
+import { Staff } from './staff/entities/staff.entity';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -23,7 +25,7 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [Wirehouse],
+      entities: [Wirehouse, Post, Staff],
       synchronize: true
     }),
     ContractsModule,
