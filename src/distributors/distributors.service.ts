@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDistributorDto } from './dto/create-distributor.dto';
 import { UpdateDistributorDto } from './dto/update-distributor.dto';
-
+import { Repository } from 'typeorm';
+import { Distributor } from './entities/distributor.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as moment from 'moment'
 @Injectable()
 export class DistributorsService {
-  create(createDistributorDto: CreateDistributorDto) {
-    return 'This action adds a new distributor';
+  constructor(
+    @InjectRepository(Distributor)
+    private repository: Repository<Distributor>
+  ){ }
+
+  create(data: CreateDistributorDto) {
+    return this.repository.save({
+      ...data,
+      changed_at: moment().format('YYYY-MM-DD HH:mm:ss')
+    });
   }
 
   findAll() {
-    return `This action returns all distributors`;
+    return this.repository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} distributor`;
+    return this.repository.findOneBy({id});
   }
 
-  update(id: number, updateDistributorDto: UpdateDistributorDto) {
-    return `This action updates a #${id} distributor`;
+  update(id: number, data: UpdateDistributorDto) {
+    return this.repository.save({...data,id});
   }
 
   remove(id: number) {
-    return `This action removes a #${id} distributor`;
+    return this.repository.delete({id});
   }
 }

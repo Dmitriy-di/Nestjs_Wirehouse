@@ -8,7 +8,7 @@ export class Post {
  
 	@Column()
 	name_post: string;
-  
+   
 	@Column()
 	salary: number;
 

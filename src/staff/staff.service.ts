@@ -5,7 +5,8 @@ import { Repository } from 'typeorm';
 import { Staff } from './entities/staff.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as moment from 'moment'
-@Injectable()
+
+@Injectable() 
 export class StaffService {
   constructor(
     @InjectRepository(Staff)

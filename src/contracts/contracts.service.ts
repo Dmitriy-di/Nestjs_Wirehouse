@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateContractDto } from './dto/create-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as moment from 'moment'
+import { Contract } from './entities/contract.entity';
 
 @Injectable()
 export class ContractsService {
-  create(createContractDto: CreateContractDto) {
-    return 'This action adds a new contract';
+  constructor(
+    @InjectRepository(Contract)
+    private repository: Repository<Contract>
+  ){ }
+
+  create(data: CreateContractDto) {
+    return this.repository.save({
+      ...data,
+      date_contract: moment().format('YYYY-MM-DD HH:mm:ss')
+    });
   }
 
   findAll() {
-    return `This action returns all contracts`;
+    return this.repository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} contract`;
+    return this.repository.findOneBy({id});
   }
 
-  update(id: number, updateContractDto: UpdateContractDto) {
-    return `This action updates a #${id} contract`;
+  update(id: number, data: UpdateContractDto) {
+    return this.repository.save({
+      ...data,
+      id,
+      updated_at: moment().format('YYYY-MM-DD HH:mm:ss')
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} contract`;
+    return this.repository.delete({id});
   }
 }

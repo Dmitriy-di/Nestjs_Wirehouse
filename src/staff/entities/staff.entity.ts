@@ -12,10 +12,10 @@ export class Staff {
 	last_name: string;
 
 	@ManyToOne((type) => Post, (post) => post.staff, {eager: true})
-	posts: Post[]
+	posts: {Post: Post}
 
 	@Column({
 		type: 'datetime'
 	})
-	changed_at: string;
+	changed_at: string; 
 }

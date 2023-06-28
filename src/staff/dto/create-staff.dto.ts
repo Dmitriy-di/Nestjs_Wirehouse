@@ -1,6 +1,6 @@
 export class CreateStaffDto {
 	first_name: string;
 	last_name: string;
-	postId: number;
+	postsId: number;
 	changed_at: string;
 }

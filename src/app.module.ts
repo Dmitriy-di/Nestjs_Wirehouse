@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { ContractsModule } from './contracts/contracts.module';
 import { DistributorsModule } from './distributors/distributors.module';
 import { PostsModule } from './posts/posts.module';
@@ -13,7 +14,8 @@ import { WirehouseOwnersModule } from './wirehouse_owners/wirehouse_owners.modul
 import { Wirehouse } from './wirehouses/entities/wirehouse.entity';
 import { Post } from './posts/entities/post.entity';
 import { Staff } from './staff/entities/staff.entity';
-import { ConfigModule } from '@nestjs/config';
+import { Distributor } from './distributors/entities/distributor.entity';
+import { Contract } from './contracts/entities/contract.entity';
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [Wirehouse, Post, Staff],
+      entities: [Wirehouse, Post, Staff, Distributor, Contract],
       synchronize: true
     }),
     ContractsModule,
