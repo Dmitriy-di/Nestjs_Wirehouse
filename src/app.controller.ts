@@ -1,12 +1,25 @@
-import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Controller, Post, Get, Body, UseGuards, Request } from '@nestjs/common';
+import { AuthService } from 'src/auth/auth.service';
+import { WirehouseOwnersService } from './wirehouse_owners/wirehouse_owners.service';
+import { CreateWirehouseOwnerDto } from './wirehouse_owners/dto/create-wirehouse_owner.dto';
+import { AuthGuard } from '@nestjs/passport';
 
-@Controller()
+@Controller('auth')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly wirehouseOwnersService: WirehouseOwnersService,
+    private authService: AuthService
+  ) { }
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Post('/register')
+  register(@Body() createWirehouseOwnerDto: CreateWirehouseOwnerDto) {
+    return this.wirehouseOwnersService.register(createWirehouseOwnerDto);
+  }
+
+  @UseGuards(AuthGuard('local'))
+  @Get('/login')
+  async login(@Request() req) {
+    return this.authService.login(req.user);
   }
 }

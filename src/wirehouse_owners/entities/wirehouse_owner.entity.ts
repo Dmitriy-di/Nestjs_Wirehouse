@@ -9,6 +9,6 @@ export class WirehouseOwner {
 	name_organisation: string;
  
 	@Column()
-	email: string;
- 
+	password: string;
 }
+ 

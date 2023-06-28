@@ -16,6 +16,9 @@ import { Post } from './posts/entities/post.entity';
 import { Staff } from './staff/entities/staff.entity';
 import { Distributor } from './distributors/entities/distributor.entity';
 import { Contract } from './contracts/entities/contract.entity';
+import { WirehouseOwner } from './wirehouse_owners/entities/wirehouse_owner.entity';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,7 +30,7 @@ import { Contract } from './contracts/entities/contract.entity';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [Wirehouse, Post, Staff, Distributor, Contract],
+      entities: [Wirehouse, Post, Staff, Distributor, Contract, WirehouseOwner],
       synchronize: true
     }),
     ContractsModule,
@@ -36,7 +39,9 @@ import { Contract } from './contracts/entities/contract.entity';
     ProductsModule,
     StaffModule,
     WirehousesModule,
-    WirehouseOwnersModule
+    WirehouseOwnersModule,
+    UsersModule,
+    AuthModule
   ],
   controllers: [
     AppController,
