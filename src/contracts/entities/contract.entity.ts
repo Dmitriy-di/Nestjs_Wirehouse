@@ -10,6 +10,9 @@ export class Contract {
 	first_name: string;
   
 	@Column()
+	last_name: string;
+
+	@Column()
 	note: string;
 
 	@Column({

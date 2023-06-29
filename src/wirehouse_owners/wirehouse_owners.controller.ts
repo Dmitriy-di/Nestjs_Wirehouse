@@ -4,7 +4,9 @@ import { CreateWirehouseOwnerDto } from './dto/create-wirehouse_owner.dto';
 import { UpdateWirehouseOwnerDto } from './dto/update-wirehouse_owner.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/auth/auth.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("WarehouseOwner")
 @Controller('wirehouse-owners')
 export class WirehouseOwnersController {
   constructor(

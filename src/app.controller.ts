@@ -4,7 +4,9 @@ import { AuthService } from 'src/auth/auth.service';
 import { WirehouseOwnersService } from './wirehouse_owners/wirehouse_owners.service';
 import { CreateWirehouseOwnerDto } from './wirehouse_owners/dto/create-wirehouse_owner.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AppController {
   constructor(

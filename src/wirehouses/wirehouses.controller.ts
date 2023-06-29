@@ -2,7 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { WirehousesService } from './wirehouses.service';
 import { CreateWirehouseDto } from './dto/create-wirehouse.dto';
 import { UpdateWirehouseDto } from './dto/update-wirehouse.dto';
-
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
+@ApiTags('Wirehouses')
 @Controller('wirehouses')
 export class WirehousesController {
   constructor(private readonly wirehousesService: WirehousesService) {}
