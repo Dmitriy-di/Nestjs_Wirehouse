@@ -4,26 +4,26 @@ import { ApiProperty } from '@nestjs/swagger/dist/decorators';
 
 @Entity()
 export class Staff {
-	@ApiProperty({
-		minimum: 1
-	})
-	@PrimaryGeneratedColumn()
-	id: number;
- 
-	@ApiProperty()
-	@Column()
-	first_name: string;
-  
-	@ApiProperty()
-	@Column()
-	last_name: string;
+  @ApiProperty({
+    minimum: 1,
+  })
+  @PrimaryGeneratedColumn()
+  id: number;
 
-	@ManyToOne((type) => Post, (post) => post.staff, {eager: true})
-	posts: {Post: Post}
+  @ApiProperty()
+  @Column()
+  first_name: string;
 
-	@ApiProperty()
-	@Column({
-		type: 'datetime'
-	})
-	changed_at: string; 
+  @ApiProperty()
+  @Column()
+  last_name: string;
+
+  @ManyToOne((type) => Post, (post) => post.staff, { eager: true })
+  posts: { Post: Post };
+
+  @ApiProperty()
+  @Column({
+    type: 'datetime',
+  })
+  changed_at: string;
 }

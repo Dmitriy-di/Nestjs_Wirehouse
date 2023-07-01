@@ -9,8 +9,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class PostsService {
   constructor(
     @InjectRepository(Post)
-    private repository: Repository<Post>
-  ){ }
+    private repository: Repository<Post>,
+  ) {}
 
   create(data: CreatePostDto) {
     return this.repository.save(data);
@@ -21,14 +21,14 @@ export class PostsService {
   }
 
   findOne(id: number) {
-    return this.repository.findOneBy({id});
+    return this.repository.findOneBy({ id });
   }
 
   update(id: number, data: UpdatePostDto) {
-    return this.repository.save({...data,id});
+    return this.repository.save({ ...data, id });
   }
 
   async remove(id: number) {
-    return this.repository.delete({id});
+    return this.repository.delete({ id });
   }
 }

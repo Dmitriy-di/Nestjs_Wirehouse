@@ -3,20 +3,20 @@ import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffDto } from './dto/update-staff.dto';
 import { Repository } from 'typeorm';
 import { Staff } from './entities/staff.entity';
-import { InjectRepository } from '@nestjs/typeorm'; 
-import * as moment from 'moment'
+import { InjectRepository } from '@nestjs/typeorm';
+import * as moment from 'moment';
 
-@Injectable() 
+@Injectable()
 export class StaffService {
   constructor(
     @InjectRepository(Staff)
-    private repository: Repository<Staff>
-  ){ } 
+    private repository: Repository<Staff>,
+  ) {}
 
   create(data: CreateStaffDto) {
     return this.repository.save({
       ...data,
-      changed_at: moment().format('YYYY-MM-DD HH:mm:ss')
+      changed_at: moment().format('YYYY-MM-DD HH:mm:ss'),
     });
   }
 
@@ -25,14 +25,14 @@ export class StaffService {
   }
 
   findOne(id: number) {
-    return this.repository.findOneBy({id});
+    return this.repository.findOneBy({ id });
   }
 
   update(id: number, data: UpdateStaffDto) {
-    return this.repository.save({...data,id});
+    return this.repository.save({ ...data, id });
   }
 
   remove(id: number) {
-    return this.repository.delete({id});
+    return this.repository.delete({ id });
   }
 }

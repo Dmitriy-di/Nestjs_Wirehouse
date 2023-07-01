@@ -4,32 +4,32 @@ import { ApiProperty } from '@nestjs/swagger/dist/decorators';
 
 @Entity()
 export class Distributor {
-	@ApiProperty({
-		minimum: 1
-	})
-	@PrimaryGeneratedColumn()
-	id: number;
- 
-	@ApiProperty()
-	@Column()
-	name_organisation: string;
+  @ApiProperty({
+    minimum: 1,
+  })
+  @PrimaryGeneratedColumn()
+  id: number;
 
-	@ApiProperty()
-	@Column()
-	ogrn: string;
+  @ApiProperty()
+  @Column()
+  name_organisation: string;
 
-	@ApiProperty({
-		minimum: 1
-	})
-	@Column()
-	rate: number;
+  @ApiProperty()
+  @Column()
+  ogrn: string;
 
-	@ApiProperty()
-	@Column({
-		type: 'datetime'
-	})
-	changed_at: string;
+  @ApiProperty({
+    minimum: 1,
+  })
+  @Column()
+  rate: number;
 
-	@OneToMany((type) => Contract, (contract) => contract.distributors)
-	contracts: Contract[]
+  @ApiProperty()
+  @Column({
+    type: 'datetime',
+  })
+  changed_at: string;
+
+  @OneToMany((type) => Contract, (contract) => contract.distributors)
+  contracts: Contract[];
 }

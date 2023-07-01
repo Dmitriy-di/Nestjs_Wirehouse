@@ -4,6 +4,6 @@ import { WirehousesController } from './wirehouses.controller';
 
 @Module({
   controllers: [WirehousesController],
-  providers: [WirehousesService]
+  providers: [WirehousesService],
 })
 export class WirehousesModule {}

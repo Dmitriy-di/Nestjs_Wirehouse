@@ -1,10 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { DistributorsService } from './distributors.service';
 import { CreateDistributorDto } from './dto/create-distributor.dto';
 import { UpdateDistributorDto } from './dto/update-distributor.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags("Distributor")
+@ApiTags('Distributor')
 @Controller('distributors')
 export class DistributorsController {
   constructor(private readonly distributorsService: DistributorsService) {}
@@ -25,7 +33,10 @@ export class DistributorsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDistributorDto: UpdateDistributorDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateDistributorDto: UpdateDistributorDto,
+  ) {
     return this.distributorsService.update(+id, updateDistributorDto);
   }
 

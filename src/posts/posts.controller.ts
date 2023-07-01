@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -12,7 +21,11 @@ import { Post as postEntity } from './entities/post.entity';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @ApiResponse({status: 201, description:'Новый пост для сотрудника успешно добавлен', type: postEntity})
+  @ApiResponse({
+    status: 201,
+    description: 'Новый пост для сотрудника успешно добавлен',
+    type: postEntity,
+  })
   @ApiResponse({ status: 401, description: 'Нужна авторизация' })
   @UseGuards(AuthGuard('jwt'))
   @Post()

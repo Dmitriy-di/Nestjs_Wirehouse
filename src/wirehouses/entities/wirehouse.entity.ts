@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Wirehouse {
-	@PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
@@ -10,8 +10,7 @@ export class Wirehouse {
 
   @Column()
   free_space_m2: number;
-	
+
   @Column()
   address: string;
-
 }

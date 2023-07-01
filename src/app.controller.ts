@@ -1,5 +1,12 @@
 import { AppService } from './app.service';
-import { Controller, Post, Get, Body, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { WirehouseOwnersService } from './wirehouse_owners/wirehouse_owners.service';
 import { CreateWirehouseOwnerDto } from './wirehouse_owners/dto/create-wirehouse_owner.dto';
@@ -11,8 +18,8 @@ import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 export class AppController {
   constructor(
     private readonly wirehouseOwnersService: WirehouseOwnersService,
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+  ) {}
 
   @Post('/register')
   register(@Body() createWirehouseOwnerDto: CreateWirehouseOwnerDto) {

@@ -31,7 +31,7 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       entities: [Wirehouse, Post, Staff, Distributor, Contract, WirehouseOwner],
-      synchronize: true
+      synchronize: true,
     }),
     ContractsModule,
     DistributorsModule,
@@ -41,14 +41,11 @@ import { AuthModule } from './auth/auth.module';
     WirehousesModule,
     WirehouseOwnersModule,
     UsersModule,
-    AuthModule
+    AuthModule,
   ],
-  controllers: [
-    AppController,
-  ],
+  controllers: [AppController],
   providers: [AppService],
 })
-
 export class AppModule {
   constructor(private dataSource: DataSource) {}
 }

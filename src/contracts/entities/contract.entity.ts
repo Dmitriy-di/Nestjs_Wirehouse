@@ -3,28 +3,30 @@ import { Distributor } from 'src/distributors/entities/distributor.entity';
 
 @Entity()
 export class Contract {
-	@PrimaryGeneratedColumn()
-	id: number;
- 
-	@Column()
-	first_name: string;
-  
-	@Column()
-	last_name: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-	@Column()
-	note: string;
+  @Column()
+  first_name: string;
 
-	@Column({
-		type: 'datetime'
-	})
-	date_contract: string; 
+  @Column()
+  last_name: string;
 
-	@Column({
-		type: 'datetime'
-	})
-	updated_at: string;
+  @Column()
+  note: string;
 
-	@ManyToOne((type) => Distributor, (distributor) => distributor.contracts, {eager: true})
-	distributors: {Distributor: Distributor}
+  @Column({
+    type: 'datetime',
+  })
+  date_contract: string;
+
+  @Column({
+    type: 'datetime',
+  })
+  updated_at: string;
+
+  @ManyToOne((type) => Distributor, (distributor) => distributor.contracts, {
+    eager: true,
+  })
+  distributors: { Distributor: Distributor };
 }
