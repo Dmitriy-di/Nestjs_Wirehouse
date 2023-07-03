@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger/dist';
+import * as Joi from 'joi';
 
 export class CreateWirehouseOwnerDto {
   @ApiProperty({
@@ -11,3 +12,8 @@ export class CreateWirehouseOwnerDto {
   })
   password: string;
 }
+
+export const createWirehouseOwnerSchema = Joi.object({
+  name_organisation: Joi.string().required(),
+  password: Joi.number().required().min(3),
+});

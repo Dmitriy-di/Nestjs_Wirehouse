@@ -7,13 +7,16 @@ import {
   Param,
   Delete,
   UseGuards,
+  ParseIntPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { CreatePostDto, createPostSchema } from './dto/create-post.dto';
+import { UpdatePostDto, updatePostSchema } from './dto/update-post.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Post as postEntity } from './entities/post.entity';
+import { JoiValidationPipe } from '../pipes/ValidationPipe';
 
 @ApiTags('Posts')
 @ApiBearerAuth()
@@ -29,6 +32,7 @@ export class PostsController {
   @ApiResponse({ status: 401, description: 'Нужна авторизация' })
   @UseGuards(AuthGuard('jwt'))
   @Post()
+  @UsePipes(new JoiValidationPipe(createPostSchema))
   create(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);
   }
@@ -41,12 +45,13 @@ export class PostsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.postsService.findOne(+id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
+  @UsePipes(new JoiValidationPipe(updatePostSchema))
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return this.postsService.update(+id, updatePostDto);
   }

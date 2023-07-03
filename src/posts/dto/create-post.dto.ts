@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger/dist';
+import * as Joi from 'joi';
 
 export class CreatePostDto {
   @ApiProperty({
@@ -11,3 +12,8 @@ export class CreatePostDto {
   })
   salary: number;
 }
+
+export const createPostSchema = Joi.object({
+  name_post: Joi.string().required(),
+  salary: Joi.number().required(),
+});

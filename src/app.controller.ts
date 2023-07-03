@@ -1,4 +1,3 @@
-import { AppService } from './app.service';
 import {
   Controller,
   Post,
@@ -6,12 +5,17 @@ import {
   Body,
   UseGuards,
   Request,
+  UsePipes,
 } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { WirehouseOwnersService } from './wirehouse_owners/wirehouse_owners.service';
-import { CreateWirehouseOwnerDto } from './wirehouse_owners/dto/create-wirehouse_owner.dto';
+import {
+  CreateWirehouseOwnerDto,
+  createWirehouseOwnerSchema,
+} from './wirehouse_owners/dto/create-wirehouse_owner.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
+import { JoiValidationPipe } from './pipes/ValidationPipe';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -22,6 +26,7 @@ export class AppController {
   ) {}
 
   @Post('/register')
+  @UsePipes(new JoiValidationPipe(createWirehouseOwnerSchema))
   register(@Body() createWirehouseOwnerDto: CreateWirehouseOwnerDto) {
     return this.wirehouseOwnersService.register(createWirehouseOwnerDto);
   }
