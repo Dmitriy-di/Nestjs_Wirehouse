@@ -33,6 +33,8 @@ export class WirehouseOwnersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
+    console.log(1111111);
+
     return this.wirehouseOwnersService.remove(+id);
   }
 }

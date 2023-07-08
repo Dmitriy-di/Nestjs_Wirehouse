@@ -14,7 +14,9 @@ export class AuthService {
     const wirehouseOwner = await this.wirehouseOwnerService.findOne(
       name_organisation,
     );
+
     if (wirehouseOwner && compare(pass, wirehouseOwner.password)) {
+      console.log(2);
       const { password, ...result } = wirehouseOwner;
       return result;
     }

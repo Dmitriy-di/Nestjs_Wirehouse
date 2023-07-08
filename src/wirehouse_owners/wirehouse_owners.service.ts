@@ -44,7 +44,9 @@ export class WirehouseOwnersService {
     return this.repository.save({ ...data, id });
   }
 
-  remove(id: number) {
-    return this.repository.delete({ id });
+  async remove(id: number) {
+    const delOwner = await this.repository.delete({ id });
+    console.log(delOwner);
+    return delOwner;
   }
 }

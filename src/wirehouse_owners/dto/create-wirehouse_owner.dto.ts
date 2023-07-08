@@ -15,5 +15,5 @@ export class CreateWirehouseOwnerDto {
 
 export const createWirehouseOwnerSchema = Joi.object({
   name_organisation: Joi.string().required(),
-  password: Joi.number().required().min(3),
+  password: Joi.string().required().min(3),
 });
