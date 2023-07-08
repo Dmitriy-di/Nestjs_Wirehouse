@@ -4,7 +4,7 @@ import { UpdateCategoryInput } from './dto/update-category.input';
 import { Category } from './entities/category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { threadId } from 'worker_threads';
+
 @Injectable()
 export class CategoryService {
   constructor(
