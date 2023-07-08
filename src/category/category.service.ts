@@ -2,32 +2,33 @@ import { Injectable } from '@nestjs/common';
 import { CreateCategoryInput } from './dto/create-category.input';
 import { UpdateCategoryInput } from './dto/update-category.input';
 import { Category } from './entities/category.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { threadId } from 'worker_threads';
 @Injectable()
 export class CategoryService {
-  private repository: Category[];
-
-  constructor() {
-    this.repository = [];
-  }
+  constructor(
+    @InjectRepository(Category)
+    private repository: Repository<Category>,
+  ) {}
 
   create(createCategoryInput: CreateCategoryInput) {
-    this.repository.push(createCategoryInput);
-    return createCategoryInput;
+    return this.repository.save(createCategoryInput);
   }
 
   findAll() {
-    return this.repository;
+    return this.repository.find();
   }
 
   findOne(id: number) {
-    return this.repository.find((item) => item.id === id);
+    return this.repository.findOneBy({ id });
   }
 
   update(id: number, updateCategoryInput: UpdateCategoryInput) {
-    return `This action updates a #${id} category`;
+    return this.repository.save({ id, ...updateCategoryInput });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(id: number) {
+    await this.repository.delete(id);
   }
 }
