@@ -20,7 +20,7 @@ import { WirehouseOwner } from './wirehouse_owners/entities/wirehouse_owner.enti
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
-
+import { File } from './files/entities/file.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -31,7 +31,15 @@ import { FilesModule } from './files/files.module';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [Wirehouse, Post, Staff, Distributor, Contract, WirehouseOwner],
+      entities: [
+        Wirehouse,
+        Post,
+        Staff,
+        Distributor,
+        Contract,
+        WirehouseOwner,
+        File,
+      ],
       synchronize: true,
     }),
     ContractsModule,

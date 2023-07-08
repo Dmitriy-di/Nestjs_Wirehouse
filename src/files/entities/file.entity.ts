@@ -1,10 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class File {
@@ -12,11 +6,8 @@ export class File {
   id: number;
 
   @Column()
-  name: string;
+  filename: string;
 
-  @CreateDateColumn()
-  dateCreated: Date;
-
-  @UpdateDateColumn()
-  dateUpdated: Date;
+  @Column('longblob')
+  data: Buffer;
 }
