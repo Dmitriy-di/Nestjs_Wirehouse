@@ -1,7 +1,14 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
+@Entity()
 export class Category {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @PrimaryGeneratedColumn()
+  @Field((type) => Int)
+  id: number;
+
+  @Column()
+  @Field({ nullable: false })
+  name: string;
 }
