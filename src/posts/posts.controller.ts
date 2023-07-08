@@ -9,6 +9,8 @@ import {
   UseGuards,
   ParseIntPipe,
   UsePipes,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto, createPostSchema } from './dto/create-post.dto';
@@ -17,6 +19,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Post as postEntity } from './entities/post.entity';
 import { JoiValidationPipe } from '../pipes/ValidationPipe';
+import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
+import { FileInterceptor } from '@nestjs/platform-express/multer/interceptors/file.interceptor';
 
 @ApiTags('Posts')
 @ApiBearerAuth()
@@ -45,14 +49,17 @@ export class PostsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get(':id')
+  @UseInterceptors(LoggingInterceptor)
   findOne(@Param('id', ParseIntPipe) id: string) {
     return this.postsService.findOne(+id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
-  @UsePipes(new JoiValidationPipe(updatePostSchema))
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+  update(
+    @Param('id') id: string,
+    @Body(new JoiValidationPipe(updatePostSchema)) updatePostDto: UpdatePostDto,
+  ) {
     return this.postsService.update(+id, updatePostDto);
   }
 
@@ -60,5 +67,11 @@ export class PostsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postsService.remove(+id);
+  }
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
   }
 }
