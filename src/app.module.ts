@@ -21,6 +21,9 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
 import { File } from './files/entities/file.entity';
+import { ModerationModule } from './moderation/moderation.module';
+import { BullModule } from '@nestjs/bull';
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -42,6 +45,12 @@ import { File } from './files/entities/file.entity';
       ],
       synchronize: true,
     }),
+    BullModule.forRoot({
+      redis: {
+        host: process.env.DATABASE_HOST,
+        port: 6379,
+      },
+    }),
     ContractsModule,
     DistributorsModule,
     PostsModule,
@@ -52,6 +61,7 @@ import { File } from './files/entities/file.entity';
     UsersModule,
     AuthModule,
     FilesModule,
+    ModerationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
